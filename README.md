@@ -2,7 +2,7 @@
 
 ## What are the odds?
 
-[A long time ago in a galaxy far away...](https://starwarsintrocreator.kassellabs.io/?ref=redirect#!/BLOF1WUcqAU6USUYMZ_W)
+[A long time ago in a galaxy far away...](https://youtu.be/2EGHIxz-bwI)
 
 The Death Star - the Empire's ultimate weapon - is almost operational and is currently approaching the Endor planet. The countdown has started.
 
