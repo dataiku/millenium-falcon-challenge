@@ -139,7 +139,7 @@ $ give-me-the-odds example1/millenium-falcon.json example1/empire.json
   "routes_db": "universe.db"
 }
 ```
-**[empire.json](examples/example1/empire.json)** (click to download)
+**[empire.json](examples/example1/empire.json?raw=true)** (click to download)
 ```
 {
   "countdown": 7, 
@@ -154,11 +154,11 @@ $ give-me-the-odds example1/millenium-falcon.json example1/empire.json
 The application should display 0% as The Millenium Falcon cannot go from Tatooine to Endor in 7 days or less (the Millenium Falcon must refuel for 1 day on either Dagobah or Hoth).
 
 ### Example 2
-**[universe.db](examples/example2/universe.db)** same as above
+**[universe.db](examples/example2/universe.db?raw=true)** same as above
 
-**[millenium-falcon.json](examples/example2/millenium-falcon.json)**: same as above
+**[millenium-falcon.json](examples/example2/millenium-falcon.json?raw=true)**: same as above
 
-**[empire.json](examples/example2/empire.json)** (click to download)
+**[empire.json](examples/example2/empire.json?raw=true)** (click to download)
 ```
 {
   "countdown": 8, 
@@ -176,11 +176,11 @@ The application should display 81% as The Millenium Falcon can go from Tatooine 
 - Travel from Hoth to Endor
 
 ### Example 3
-**[universe.db](examples/example3/universe.db)** same as above
+**[universe.db](examples/example3/universe.db?raw=true)** same as above
 
-**[millenium-falcon.json](examples/example3/millenium-falcon.json)**: same as above
+**[millenium-falcon.json](examples/example3/millenium-falcon.json?raw=true)**: same as above
 
-**[empire.json](examples/example3/empire.json)**
+**[empire.json](examples/example3/empire.json?raw=true)**
 ```
 {
   "countdown": 9, 
@@ -199,11 +199,11 @@ The application should display 90% as The Millenium Falcon can go from Tatooine 
 - Travel from Hoth to Endor
 
 ### Example 4
-**[universe.db](examples/example4/universe.db)** same as above
+**[universe.db](examples/example4/universe.db?raw=true)** same as above
 
-**[millenium-falcon.json](examples/example4/millenium-falcon.json)**: same as above
+**[millenium-falcon.json](examples/example4/millenium-falcon.json?raw=true)**: same as above
 
-**[empire.json](examples/example4/empire.json)**
+**[empire.json](examples/example4/empire.json?raw=true)**
 ```
 {
   "countdown": 10, 
