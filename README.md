@@ -25,7 +25,7 @@ Hint: To avoid the Bounty Hunters, the Millenium Falcon can land on a planet wit
 
 The mathematical formula to compute the total probability of being captured is:
 
-![formula](https://github.com/dataiku/millenium-falcon-challenge-simple/blob/master/resources/formula-k.png)
+![formula](https://github.com/dataiku/millenium-falcon-challenge/blob/master/resources/formula-k.png)
 
 where k is the number of times the Bounty Hunter tried to capture the Millenium Falcon.
 
@@ -49,33 +49,46 @@ For example, the probability to get captured is:
 
 ## The mission
 
-Your mission is to program C3PO to compute the odds that the Millenium Falcon reaches Endor in time and saves the galaxy.
+Your mission is to create a web application to compute and display the odds that the Millenium Falcon reaches Endor in time and saves the galaxy.
 
-![Never tell me the odds](https://dev.dataiku.com/dataiku-dev-challenge/images/image6.gif)
+![Never tell me the odds](https://github.com/dataiku/millenium-falcon-challenge/blob/master/resources/never-tell-me-the-odds.gif)
 
-Your program will be given 2 JSON files as input:
+Your web application will be composed of a backend (the Millenium Falcon onboard computer), a front-end (C3PO) and a CLI (command-line interface aka R2D2).
+
+### Back-end
+
+When it starts, the back-end service will read a JSON configuration file containing the autonomy, the path towards an SQLite database file containing all the routes, the name of the planet where the Millenium Falcon is currently parked (Tatooine) and the name of the planet that the empire wants to destroy (Endor).
 
 **millenium-falcon.json**
-
-The first JSON file contains the navigation data of the Millenium Falcon
 ```json
 {
-  "autonomy": 6, 
-  "routes": [
-    {"origin": "Tatooine", "destination": "Dagobah", "travelTime": 4 },
-    {"origin": "Dagobah", "destination": "Endor", "travelTime": 1 },
-  ]
+  "autonomy": 6,
+  "departure": "Tatooine",
+  "arrival": "Endor",
+  "routes_db": "universe.db"
 }
 ```
    - autonomy (integer): autonomy of the Millenium Falcon in days.
-   - routes (list): List of all space routes in the galaxy. Each item in the list represents a route. Routes can be travelled in any direction (from origin to destination or vice-versa)
-      - Origin (string): Name of the origin planet. Cannot be null or empty.
-      - Destination (string):  Name of the destination planet. Cannot be null or empty.
-      - travelTime (integer): Number days needed to travel from one planet to the other. Must be strictly positive..
+   - departure (string): Planet where the Millenium Falcon is on day 0.
+   - arrival (string): Planet where the Millenium Falcon must be at or before countdown.
+   - routes_db (string): Path toward a SQLite database file containing the routes. The path can be either absolute or relative to the location of the `millenium-falcon.json` file itself.
+
+The SQLite database will contain a table named ROUTES. Each row in the table represents a space route. Routes can be travelled **in any direction** (from origin to destination or vice-versa).
+
+   - ORIGIN (TEXT): Name of the origin planet. Cannot be null or empty.
+   - DESTINATION (TEXT): Name of the destination planet. Cannot be null or empty.
+   - TRAVEL_TIME (INTEGER): Number days needed to travel from one planet to the other. Must be strictly positive.
+
+| ORIGIN   | DESTINATION | TRAVEL_TIME |
+|----------|-------------|-------------|
+| Tatooine | Dagobah     | 4           |
+| Dagobah  | Endor       | 1           |
+
+### Front-end
+
+The front-end should consists of a single-page application offering users a way to upload a JSON file containing the data intercepted by the rebels about the plans of the Empire and displaying the odds (as a percentage) that the Millenium Falcon reaches Endor in time and saves the galaxy.
 
 **empire.json**
-
-The second JSON file contains the data intercepted by the rebels about the plans of the Empire:
 ```json
 {
   "countdown": 6, 
@@ -92,38 +105,23 @@ The second JSON file contains the data intercepted by the rebels about the plans
       - day (integer): Day the bounty hunters are on the planet. 0 represents the first day of the mission, i.e. today.
 
 
-Your program should return the probability of success as a floating-point number ranging from 0 to 1:
-- `0` if the Millenium Falcon cannot reach Endor before the Death Star annihilates Endor
-- `x (0 < x < 1)` if the Millenium Falcon can reach Endor before the Death Star annihilates Endor but might be captured by bounty hunters.
-- `1` if the Millenium Falcon can reach Endor before the Death Star annihilates Endor without crossing a planet with bounty hunters on it.
+The web page will display the probability of success as a number ranging from 0 to 100%:
+- `0%` if the Millenium Falcon cannot reach Endor before the Death Star annihilates Endor
+- `x% (0 < x < 100)` if the Millenium Falcon can reach Endor before the Death Star annihilates Endor but might be captured by bounty hunters.
+- `100%` if the Millenium Falcon can reach Endor before the Death Star annihilates Endor without crossing a planet with bounty hunters on it.
 
-Your task is to create a class and a method with the following signature (depending on your preferred  language) :
+### CLI
 
-**Java**
-```java
-public class C3PO {
-    public C3PO(File milleniumFalconJsonFile) {
-        ...
-    }
-    public double giveMeTheOdds(File empireJsonFile) {
-        ...
-    }
-} 
-```
-
-**Python**
-```python
-class C3PO:
-    def __init__(self, milleniumFalconJsonFile):
-        ...
-    def giveMeTheOdds(self, empireJsonFile):
-        ...
+The command-line interface should consist of an executable that takes 2 files paths as input (respectively the paths toward the `millenium-falcon.json` and `empire.json` files) and prints the probability of success as a number ranging from 0 to 100.
+```sh
+$ give-me-the-odds example1/millenium-falcon.json example1/empire.json
+81
 ```
 
 ## Examples
 
 ### Example 1
-**[universe-example1.db](examples/example1/universe-example1.db)**
+**[universe.db](examples/example1/universe.db)** (click to download)
 | ORIGIN   | DESTINATION | TRAVEL_TIME |
 |----------|-------------|-------------|
 | Tatooine | Dagobah     | 6           |
@@ -132,16 +130,16 @@ class C3PO:
 | Hoth     | Endor       | 1           |
 | Tatooine | Hoth        | 6           |
 
-**[millenium-falcon.json](examples/example1/millenium-falcon.json)**
+**[millenium-falcon.json](examples/example1/millenium-falcon.json)** (click to download)
 ```
 {
   "autonomy": 6,
   "departure": "Tatooine",
   "arrival": "Endor",
-  "routes_db": "universe-example1.db"
+  "routes_db": "universe.db"
 }
 ```
-**[empire.json](examples/example1/empire.json)**
+**[empire.json](examples/example1/empire.json)** (click to download)
 ```
 {
   "countdown": 7, 
@@ -153,12 +151,14 @@ class C3PO:
 }
 ```
 
-`giveMeTheOdds(milleniumFalconJsonFile, empireJsonFile)` should return 0 as The Millenium Falcon cannot go from Tatooine to Endor in 7 days or less (the Millenium Falcon must refuel for 1 day on either Dagobah or Hoth).
+The application should display 0% as The Millenium Falcon cannot go from Tatooine to Endor in 7 days or less (the Millenium Falcon must refuel for 1 day on either Dagobah or Hoth).
 
 ### Example 2
+**[universe.db](examples/example2/universe.db)** same as above
+
 **[millenium-falcon.json](examples/example2/millenium-falcon.json)**: same as above
 
-**[empire.json](examples/example2/empire.json)**
+**[empire.json](examples/example2/empire.json)** (click to download)
 ```
 {
   "countdown": 8, 
@@ -170,12 +170,14 @@ class C3PO:
 }
 ```
 
-`giveMeTheOdds(milleniumFalconJsonFile, empireJsonFile)` should return 0.81 as The Millenium Falcon can go from Tatooine to Endor in 8 days with the following plan:
+The application should display 81% as The Millenium Falcon can go from Tatooine to Endor in 8 days with the following plan:
 - Travel from Tatooine to Hoth, with 10% chance of being captured on day 6 on Hoth.
 - Refuel on Hoth with 10% chance of being captured on day 7 on Hoth.
 - Travel from Hoth to Endor
 
 ### Example 3
+**[universe.db](examples/example3/universe.db)** same as above
+
 **[millenium-falcon.json](examples/example3/millenium-falcon.json)**: same as above
 
 **[empire.json](examples/example3/empire.json)**
@@ -190,13 +192,15 @@ class C3PO:
 }
 ```
 
-`giveMeTheOdds(milleniumFalconJsonFile, empireJsonFile)` should return 0.9 as The Millenium Falcon can go from Tatooine to Endor in 8 days with the following plan:
+The application should display 90% as The Millenium Falcon can go from Tatooine to Endor in 8 days with the following plan:
 - Travel from Tatooine to Dagobath.
 - Refuel on Dagobah
 - Travel from Dagobah to Hoth, with 10% chance of being captured on day 8 on Hoth.
 - Travel from Hoth to Endor
 
 ### Example 4
+**[universe.db](examples/example4/universe.db)** same as above
+
 **[millenium-falcon.json](examples/example4/millenium-falcon.json)**: same as above
 
 **[empire.json](examples/example4/empire.json)**
@@ -211,7 +215,7 @@ class C3PO:
 }
 ```
 
-`giveMeTheOdds(milleniumFalconJsonFile, empireJsonFile)` should return 1 as The Millenium Falcon can go from Tatooine to Endor in 10 days and avoid Bounty Hunters with the following plans:
+The application should display 100% as The Millenium Falcon can go from Tatooine to Endor in 10 days and avoid Bounty Hunters with the following plans:
 - Travel from Tatooine to Dagobah,  refuel on Dagobah
 - Wait for 1 day on Dagobah
 - Travel from Dagobah to Hoth
