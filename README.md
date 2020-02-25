@@ -227,3 +227,12 @@ or
 - Travel from Tatooine to Dagobah, refuel on Dagobah
 - Travel from Dagobah to Hoth
 - Travel from Hoth to Endor
+
+
+## Final note
+There is absolutely no constraint on the technological stack that you might choose to achieve this,
+either in the backend or frontend. Choose whichever you think is best suited for the task.
+
+We are looking for high quality code: typically something that you would put into production and be proud of.
+
+Have fun!
