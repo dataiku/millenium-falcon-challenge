@@ -121,7 +121,7 @@ $ give-me-the-odds example1/millenium-falcon.json example1/empire.json
 ## Examples
 
 ### Example 1
-**[universe.db](examples/example1/universe.db)** (click to download)
+**[universe.db](examples/example1/universe.db?raw=true)** (click to download)
 | ORIGIN   | DESTINATION | TRAVEL_TIME |
 |----------|-------------|-------------|
 | Tatooine | Dagobah     | 6           |
@@ -130,7 +130,7 @@ $ give-me-the-odds example1/millenium-falcon.json example1/empire.json
 | Hoth     | Endor       | 1           |
 | Tatooine | Hoth        | 6           |
 
-**[millenium-falcon.json](examples/example1/millenium-falcon.json)** (click to download)
+**[millenium-falcon.json](examples/example1/millenium-falcon.json?raw=true)** (click to download)
 ```
 {
   "autonomy": 6,
