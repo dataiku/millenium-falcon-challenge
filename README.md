@@ -94,7 +94,7 @@ The front-end should consists of a single-page application offering users a way 
   "countdown": 6, 
   "bounty_hunters": [
     {"planet": "Tatooine", "day": 4 },
-    {"planet": "Dagobah", "day": 5 },
+    {"planet": "Dagobah", "day": 5 }
   ]
 }
 ```
@@ -146,7 +146,7 @@ $ give-me-the-odds example1/millenium-falcon.json example1/empire.json
   "bounty_hunters": [
     {"planet": "Hoth", "day": 6 }, 
     {"planet": "Hoth", "day": 7 },
-    {"planet": "Hoth", "day": 8 },
+    {"planet": "Hoth", "day": 8 }
   ]
 }
 ```
@@ -165,7 +165,7 @@ The application should display 0% as The Millenium Falcon cannot go from Tatooin
   "bounty_hunters": [
     {"planet": "Hoth", "day": 6 }, 
     {"planet": "Hoth", "day": 7 },
-    {"planet": "Hoth", "day": 8 },
+    {"planet": "Hoth", "day": 8 }
   ]
 }
 ```
@@ -187,7 +187,7 @@ The application should display 81% as The Millenium Falcon can go from Tatooine 
   "bounty_hunters": [
     {"planet": "Hoth", "day": 6 }, 
     {"planet": "Hoth", "day": 7 },
-    {"planet": "Hoth", "day": 8 },
+    {"planet": "Hoth", "day": 8 }
   ]
 }
 ```
@@ -210,7 +210,7 @@ The application should display 90% as The Millenium Falcon can go from Tatooine 
   "bounty_hunters": [
     {"planet": "Hoth", "day": 6 }, 
     {"planet": "Hoth", "day": 7 },
-    {"planet": "Hoth", "day": 8 },
+    {"planet": "Hoth", "day": 8 }
   ]
 }
 ```
