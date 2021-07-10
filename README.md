@@ -71,7 +71,7 @@ When it starts, the back-end service will read a JSON configuration file contain
    - autonomy (integer): autonomy of the Millennium Falcon in days.
    - departure (string): Planet where the Millennium Falcon is on day 0.
    - arrival (string): Planet where the Millennium Falcon must be at or before countdown.
-   - routes_db (string): Path toward a SQLite database file containing the routes. The path can be either absolute or relative to the location of the `millenium-falcon.json` file itself.
+   - routes_db (string): Path toward a SQLite database file containing the routes. The path can be either absolute or relative to the location of the `millennium-falcon.json` file itself.
 
 The SQLite database will contain a table named ROUTES. Each row in the table represents a space route. Routes can be travelled **in any direction** (from origin to destination or vice-versa).
 
