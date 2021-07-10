@@ -59,7 +59,7 @@ Your web application will be composed of a backend (the Millennium Falcon onboar
 
 When it starts, the back-end service will read a JSON configuration file containing the autonomy, the path towards an SQLite database file containing all the routes, the name of the planet where the Millennium Falcon is currently parked (Tatooine) and the name of the planet that the empire wants to destroy (Endor).
 
-**millenium-falcon.json**
+**millennium-falcon.json**
 ```json
 {
   "autonomy": 6,
