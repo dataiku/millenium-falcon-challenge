@@ -130,7 +130,7 @@ $ give-me-the-odds example1/millennium-falcon.json example1/empire.json
 | Hoth     | Endor       | 1           |
 | Tatooine | Hoth        | 6           |
 
-**[millennium-falcon.json](examples/example1/millenium-falcon.json?raw=true)** (click to download)
+**[millennium-falcon.json](examples/example1/millennium-falcon.json?raw=true)** (click to download)
 ```
 {
   "autonomy": 6,
@@ -156,7 +156,7 @@ The application should display 0% as The Millennium Falcon cannot go from Tatooi
 ### Example 2
 **[universe.db](examples/example2/universe.db?raw=true)** same as above
 
-**[millennium-falcon.json](examples/example2/millenium-falcon.json?raw=true)**: same as above
+**[millennium-falcon.json](examples/example2/millennium-falcon.json?raw=true)**: same as above
 
 **[empire.json](examples/example2/empire.json?raw=true)** (click to download)
 ```
@@ -178,7 +178,7 @@ The application should display 81% as The Millennium Falcon can go from Tatooine
 ### Example 3
 **[universe.db](examples/example3/universe.db?raw=true)** same as above
 
-**[millennium-falcon.json](examples/example3/millenium-falcon.json?raw=true)**: same as above
+**[millennium-falcon.json](examples/example3/millennium-falcon.json?raw=true)**: same as above
 
 **[empire.json](examples/example3/empire.json?raw=true)**
 ```
@@ -201,7 +201,7 @@ The application should display 90% as The Millennium Falcon can go from Tatooine
 ### Example 4
 **[universe.db](examples/example4/universe.db?raw=true)** same as above
 
-**[millennium-falcon.json](examples/example4/millenium-falcon.json?raw=true)**: same as above
+**[millennium-falcon.json](examples/example4/millennium-falcon.json?raw=true)**: same as above
 
 **[empire.json](examples/example4/empire.json?raw=true)**
 ```
