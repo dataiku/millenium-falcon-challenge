@@ -33,19 +33,19 @@ where k is the number of times the Bounty Hunter tried to capture the Millennium
 For example, the probability to get captured is:
    - if the Millennium Falcon travels via 1 planet with bounty hunters:
   
-      $$ {1 \over 10} = 0.1 $$
+$$ {1 \over 10} = 0.1 $$
    
    - if the Millennium Falcon travels via 1 planet with bounty hunters and refuels on this planet:
 
-      $$ {1 \over 10} + { 9 \over 10^2 } = 0.19 $$
+$$ {1 \over 10} + { 9 \over 10^2 } = 0.19 $$
 
    - if the Millennium Falcon travels via 2 planets with bounty hunters:
 
-      $$ {1 \over 10} + { 9 \over 10^2 } = 0.19 $$
+$$ {1 \over 10} + { 9 \over 10^2 } = 0.19 $$
 
    - if the Millennium Falcon travels via 3 planets with bounty hunters:
 
-      $$ {1 \over 10} + { 9 \over 10^2 } + { 9^2 \over 10^3 } = 0.271 $$
+$$ {1 \over 10} + { 9 \over 10^2 } + { 9^2 \over 10^3 } = 0.271 $$
 
 
 ## The mission
