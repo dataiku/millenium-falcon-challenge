@@ -25,7 +25,7 @@ Hint: To avoid the Bounty Hunters, the Millennium Falcon can land on a planet wi
 
 The mathematical formula to compute the total probability of being captured is:
 
-$$ {1 \over 10} + { 9 \over 10^2 } + { 9^2 \over 10^3 } + ... + { 9^k \over 10^{k+1} } $$
+$$ {1 \over 10} + { 9 \over 10^2 } + { 9^2 \over 10^3 } + ... + { 9^{k-1} \over 10^{k} } $$
 
 
 where k is the number of times the Bounty Hunter tried to capture the Millennium Falcon.
