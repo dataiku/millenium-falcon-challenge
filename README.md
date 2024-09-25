@@ -115,7 +115,7 @@ The web page will display the probability of success as a number ranging from 0 
 
 The command-line interface should consist of an executable that takes 2 files paths as input (respectively the paths toward the `millennium-falcon.json` and `empire.json` files) and prints the probability of success as a number ranging from 0 to 100.
 ```sh
-$ give-me-the-odds example1/millennium-falcon.json example1/empire.json
+$ give-me-the-odds example2/millennium-falcon.json example2/empire.json
 81
 ```
 
