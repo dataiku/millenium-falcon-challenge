@@ -1,4 +1,4 @@
-package com.dataiku.millenium;
+package com.dataiku.millennium;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

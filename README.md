@@ -1,5 +1,116 @@
 # Developer Technical Test @ Dataiku
 
+
+# Submission
+## Tech Stack
+
+The submission is split into three parts - backend, frontend and cli.
+- Frontend - React.js
+- CLI      - Java
+- Backend  - Java + SpringBoot
+
+## Running the application
+### Running the CLI
+
+We use `maven` to build and package our application. Just run the command to run the cli application.
+```
+$ mvn clean compile exec:java -Dexec.args="<millenium-falcon.json> <empire.json>"
+```
+
+For example
+```
+ $ mvn clean compile exec:java  -Dexec.args="examples/example3/millennium-falcon.json examples/example3/empire.json"
+```
+
+## Backend
+The backend is made with SpringBoot. Run the following command to start the backend
+```
+$ mvn clean spring-boot:run
+```
+
+Now, this start listening at `localhost:8080`. We can send a POST via curl to verify the working
+```
+curl -X POST http://localhost:8080/millennium/traverse \
+-H "Content-Type: application/json" \
+-d @./examples/example1/empire.json
+```
+
+## Frontend
+The frontend is written with React. Start the front-end with the following command
+
+```angular2html
+# Navigate to the front-end directory
+$ cd millennium-frontend
+$ npm start
+```
+
+Once the server is running, the front-end will be available in your browser at http://localhost:3000.
+
+Now, you can upload your `empire.json` file and click `Submit`. If the backend is up and running,
+you will get a response.
+
+## Algorithm
+We are given `N` planets, `M` routes between them, a maximum fuel autonomy `F`, a countdown `C`, and `B` bounty hunters
+scattered across the planets.
+
+### Idea
+The problem can be modelled as a graph where planets are nodes, and the fuel cost (in days) is the weight of the edges
+between planets. The goal is to reach the `destination` planet before the `countdown` expires. This can be modelled as
+a shortest-path problem; if the distance between `source` and `destination` is less than countdown,
+we can save the planet.
+
+The shortest-problem can be solved with Dijkstra's algorithm which provides a time complexity of `O(M * log (N))`.
+
+However, we must account for two additional constraints - `refueling` and `bountyHunters`.
+Let’s tackle each constraint step-by-step.
+
+### Adding the refueling constraint
+To incorporate refueling, we adjust the graph to model to incorporate fuel levels. Now each node represents a state
+`(planet, fuel)`. Travelling to another `planet_y` from `planet_x` with a fuel cost of `distance` is modelled as a
+transition from `(planet_x, fuel)` to `(planet_y, fuel - distance)` with a weighted edge `distance`.
+
+Refueling at a planet is straightforward. We can add a transition from `(planet, fuel)` to `(planet, max_fuel)`
+with an edge of weight `1`, representing the time it takes to fuel.
+
+Running Dijkstra's algorithm on the enhanced graph,  will now yield a set of potential destination states of the form
+`(destination, fuel)`. The minimum distance among these states gives the optimal time to save the planet.
+
+This algorithm will now take `O(M * F * log(N * F))` where `F` represents maximum fuel autonomy.
+
+### Adding the bountyHunter constraint.
+The next challenge involves accounting for bounty hunters. Bounty hunters may be stationed on certain planets on
+specific days, and the goal is to avoid them whenever possible while still adhering to the countdown.
+
+Refueling while waiting at a planet is always optimal, simplifying transitions in the graph. Now, we extend the graph
+model to track time, introducing a new state `(planet, fuel, day)`.
+
+- Travelling to a planet `other` at a distance `dist` is modelled as a transition to the state
+  `(other, fuel - dist, day + dist)`.
+- Refuelling/waiting on the same planet is a transition to the state `(planet, max_fuel, day + 1)`.
+
+To incorporate bounty hunters, we define a flag `hasHunter`, which equals `1` if there is a hunter at the next state
+and `0` otherwise. We update our model to `(planet, fuel, day, huntersSeen)` where `hunters_seen` tracks the number
+of hunters seen so far.
+- Travelling to another planet `(planet, fuel - dist, day + dist, huntersSeen + hasHunter)`.
+- Refuelling/waiting on the same planet is a transition to the state
+  `(planet, max_fuel, day + 1, huntersSeen + hasHunter)`.
+
+In this model, the graph becomes unweighted. To solve, we check if any state `(destination, *, *, num_hunter)` is
+reachable from the start. The minimum `num_hunters` encountered among all valid destination states gives the optimal
+solution. This can be implemented via BFS + Dynamic programming to avoid visiting repeated states.
+It has a time complexity of `O((M + N) * F * C * B)`.
+
+### Further Optimization (Not implemented yet)
+To simplify the state, we can eliminate the `hunters_seen` field and instead track the minimum number of hunters
+encountered per state dynamically.
+
+Since our graph is a Directed Acyclic Graph (DAG), we can process the states in order of days. For each state
+`(planet, fuel, day)`, we maintain the minimum number of hunters encountered. When processing a transition from
+state `X` to `Y`, we update `Y`’s hunter count to be the minimum of its current value and
+`hunter_seen_at_X + has_hunter_at_Y`.
+
+This is also a BFS approach combined with dynamic programming, and reduces the time complexity to `O((M + N) * F * C)`.
+
 ## What are the odds?
 
 [A long time ago in a galaxy far away...](https://youtu.be/2EGHIxz-bwI)

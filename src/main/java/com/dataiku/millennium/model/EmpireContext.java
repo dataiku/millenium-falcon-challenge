@@ -1,4 +1,4 @@
-package com.dataiku.millenium.model;
+package com.dataiku.millennium.model;
 
 import java.util.Set;
 
