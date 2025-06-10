@@ -13,9 +13,9 @@ The Empire has hired the best bounty hunters in the galaxy to capture the Millen
 ### Routes
 The Millennium Falcon has an onboard map containing the list of all planets in the galaxy, and the number of days it takes to go from one to the other using an Hyperspace jump.
 
-### Autonomy
-However, the Millennium Falcon is not the newest ship of its kind and it has a limited autonomy. If it's lacking fuel to achieve his next Hyperspace jump, it first must stop for 1 day on the nearby planet to refuel.
-For example, if its autonomy is 6 days, and it has already done a 4 days Hyperspace jump. It can reach another planet that is 1 or 2 days away from its current position. To reach planets that are 3 days or more away, it must refuel first.
+### Autonomy & Fuel
+However, the Millennium Falcon is not the newest ship of its kind. It's autonomy defines its maximum fuel tank capacity, measured in days of travel. Each hyperspace jump consumes an amount of fuel equal to its travel time. If the remaining fuel is insufficient for the next jump, the crew must refuel. Refueling takes 1 day and fills the tank back to its maximum capacity.
+For example, if the ship's autonomy is 6 days and a 4-day jump was just completed, 2 days of fuel remain. To reach a planet that is 3 or more days away, the crew must first spend 1 day refueling to restore the tank to its full 6-day capacity.
 
 ### Bounty Hunters
 The rebel command center has also intercepted a communication and the rebels know the various locations and days where Bounty Hunter have planned to hunt the Millennium Falcon.
