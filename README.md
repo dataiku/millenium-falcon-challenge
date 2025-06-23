@@ -11,13 +11,16 @@ Han Solo, Chewbacca, Leia and C3PO are currently on Tatooine boarding on the Mil
 The Empire has hired the best bounty hunters in the galaxy to capture the Millennium Falcon and stop it from joining the rebel fleet...
 
 ### Routes
+
 The Millennium Falcon has an onboard map containing the list of all planets in the galaxy, and the number of days it takes to go from one to the other using an Hyperspace jump.
 
 ### Autonomy & Fuel
+
 However, the Millennium Falcon is not the newest ship of its kind. It's autonomy defines its maximum fuel tank capacity, measured in days of travel. Each hyperspace jump consumes an amount of fuel equal to its travel time. If the remaining fuel is insufficient for the next jump, the crew must refuel. Refueling takes 1 day and fills the tank back to its maximum capacity.
 For example, if the ship's autonomy is 6 days and a 4-day jump was just completed, 2 days of fuel remain. To reach a planet that is 3 or more days away, the crew must first spend 1 day refueling to restore the tank to its full 6-day capacity.
 
 ### Bounty Hunters
+
 The rebel command center has also intercepted a communication and the rebels know the various locations and days where Bounty Hunter have planned to hunt the Millennium Falcon.
 If the Millennium Falcon arrives on a planet on a day where Bounty Hunter are expected to be on this planet, the crew has 10% chance of being captured. Likewise, if the Millennium Falcon refuels on a planet on a day where Bounty Hunter are expected to be on this planet, the crew has 10% chance of being captured.
 
@@ -27,26 +30,25 @@ The mathematical formula to compute the total probability of being captured is:
 
 $$ {1 \over 10} + { 9 \over 10^2 } + { 9^2 \over 10^3 } + ... + { 9^{k-1} \over 10^{k} } $$
 
-
 where k is the number of times the Bounty Hunter tried to capture the Millennium Falcon.
 
 For example, the probability to get captured is:
-   - if the Millennium Falcon travels via 1 planet with bounty hunters:
-  
+
+- if the Millennium Falcon travels via 1 planet with bounty hunters:
+
 $$ {1 \over 10} = 0.1 $$
-   
-   - if the Millennium Falcon travels via 1 planet with bounty hunters and refuels on this planet:
+
+- if the Millennium Falcon travels via 1 planet with bounty hunters and refuels on this planet:
 
 $$ {1 \over 10} + { 9 \over 10^2 } = 0.19 $$
 
-   - if the Millennium Falcon travels via 2 planets with bounty hunters:
+- if the Millennium Falcon travels via 2 planets with bounty hunters:
 
 $$ {1 \over 10} + { 9 \over 10^2 } = 0.19 $$
 
-   - if the Millennium Falcon travels via 3 planets with bounty hunters:
+- if the Millennium Falcon travels via 3 planets with bounty hunters:
 
 $$ {1 \over 10} + { 9 \over 10^2 } + { 9^2 \over 10^3 } = 0.271 $$
-
 
 ## The mission
 
@@ -61,6 +63,7 @@ Your web application will be composed of a backend (the Millennium Falcon onboar
 When it starts, the back-end service will read a JSON configuration file containing the autonomy, the path towards an SQLite database file containing all the routes, the name of the planet where the Millennium Falcon is currently parked (Tatooine) and the name of the planet that the empire wants to destroy (Endor).
 
 **millennium-falcon.json**
+
 ```json
 {
   "autonomy": 6,
@@ -69,19 +72,20 @@ When it starts, the back-end service will read a JSON configuration file contain
   "routes_db": "universe.db"
 }
 ```
-   - autonomy (integer): autonomy of the Millennium Falcon in days.
-   - departure (string): Planet where the Millennium Falcon is on day 0.
-   - arrival (string): Planet where the Millennium Falcon must be at or before countdown.
-   - routes_db (string): Path toward a SQLite database file containing the routes. The path can be either absolute or relative to the location of the `millennium-falcon.json` file itself.
+
+- autonomy (integer): autonomy of the Millennium Falcon in days.
+- departure (string): Planet where the Millennium Falcon is on day 0.
+- arrival (string): Planet where the Millennium Falcon must be at or before countdown.
+- routes_db (string): Path toward a SQLite database file containing the routes. The path can be either absolute or relative to the location of the `millennium-falcon.json` file itself.
 
 The SQLite database will contain a table named ROUTES. Each row in the table represents a space route. Routes can be travelled **in any direction** (from origin to destination or vice-versa).
 
-   - ORIGIN (TEXT): Name of the origin planet. Cannot be null or empty.
-   - DESTINATION (TEXT): Name of the destination planet. Cannot be null or empty.
-   - TRAVEL_TIME (INTEGER): Number days needed to travel from one planet to the other. Must be strictly positive.
+- ORIGIN (TEXT): Name of the origin planet. Cannot be null or empty.
+- DESTINATION (TEXT): Name of the destination planet. Cannot be null or empty.
+- TRAVEL_TIME (INTEGER): Number days needed to travel from one planet to the other. Must be strictly positive.
 
 | ORIGIN   | DESTINATION | TRAVEL_TIME |
-|----------|-------------|-------------|
+| -------- | ----------- | ----------- |
 | Tatooine | Dagobah     | 4           |
 | Dagobah  | Endor       | 1           |
 
@@ -90,23 +94,24 @@ The SQLite database will contain a table named ROUTES. Each row in the table rep
 The front-end should consists of a single-page application offering users a way to upload a JSON file containing the data intercepted by the rebels about the plans of the Empire and displaying the odds (as a percentage) that the Millennium Falcon reaches Endor in time and saves the galaxy.
 
 **empire.json**
+
 ```json
 {
-  "countdown": 6, 
+  "countdown": 6,
   "bounty_hunters": [
-    {"planet": "Tatooine", "day": 4 },
-    {"planet": "Dagobah", "day": 5 }
+    { "planet": "Tatooine", "day": 4 },
+    { "planet": "Dagobah", "day": 5 }
   ]
 }
 ```
 
-   - countdown (integer): number of days before the Death Star annihilates Endor
-   - bounty_hunters (list): list of all locations where Bounty Hunter are scheduled to be present.
-      - planet (string): Name of the planet. It cannot be null or empty.
-      - day (integer): Day the bounty hunters are on the planet. 0 represents the first day of the mission, i.e. today.
-
+- countdown (integer): number of days before the Death Star annihilates Endor
+- bounty_hunters (list): list of all locations where Bounty Hunter are scheduled to be present.
+  - planet (string): Name of the planet. It cannot be null or empty.
+  - day (integer): Day the bounty hunters are on the planet. 0 represents the first day of the mission, i.e. today.
 
 The web page will display the probability of success as a number ranging from 0 to 100%:
+
 - `0%` if the Millennium Falcon cannot reach Endor before the Death Star annihilates Endor
 - `x% (0 < x < 100)` if the Millennium Falcon can reach Endor before the Death Star annihilates Endor but might be captured by bounty hunters.
 - `100%` if the Millennium Falcon can reach Endor before the Death Star annihilates Endor without crossing a planet with bounty hunters on it.
@@ -114,6 +119,7 @@ The web page will display the probability of success as a number ranging from 0 
 ### CLI
 
 The command-line interface should consist of an executable that takes 2 files paths as input (respectively the paths toward the `millennium-falcon.json` and `empire.json` files) and prints the probability of success as a number ranging from 0 to 100.
+
 ```sh
 $ give-me-the-odds example2/millennium-falcon.json example2/empire.json
 81
@@ -122,16 +128,18 @@ $ give-me-the-odds example2/millennium-falcon.json example2/empire.json
 ## Examples
 
 ### Example 1
+
 **[universe.db](examples/example1/universe.db?raw=true)** (click to download)
-| ORIGIN   | DESTINATION | TRAVEL_TIME |
+| ORIGIN | DESTINATION | TRAVEL_TIME |
 |----------|-------------|-------------|
-| Tatooine | Dagobah     | 6           |
-| Dagobah  | Endor       | 4           |
-| Dagobah  | Hoth        | 1           |
-| Hoth     | Endor       | 1           |
-| Tatooine | Hoth        | 6           |
+| Tatooine | Dagobah | 6 |
+| Dagobah | Endor | 4 |
+| Dagobah | Hoth | 1 |
+| Hoth | Endor | 1 |
+| Tatooine | Hoth | 6 |
 
 **[millennium-falcon.json](examples/example1/millennium-falcon.json?raw=true)** (click to download)
+
 ```
 {
   "autonomy": 6,
@@ -140,12 +148,14 @@ $ give-me-the-odds example2/millennium-falcon.json example2/empire.json
   "routes_db": "universe.db"
 }
 ```
+
 **[empire.json](examples/example1/empire.json?raw=true)** (click to download)
+
 ```
 {
-  "countdown": 7, 
+  "countdown": 7,
   "bounty_hunters": [
-    {"planet": "Hoth", "day": 6 }, 
+    {"planet": "Hoth", "day": 6 },
     {"planet": "Hoth", "day": 7 },
     {"planet": "Hoth", "day": 8 }
   ]
@@ -155,16 +165,18 @@ $ give-me-the-odds example2/millennium-falcon.json example2/empire.json
 The application should display 0% as The Millennium Falcon cannot go from Tatooine to Endor in 7 days or less (the Millennium Falcon must refuel for 1 day on either Dagobah or Hoth).
 
 ### Example 2
+
 **[universe.db](examples/example2/universe.db?raw=true)** same as above
 
 **[millennium-falcon.json](examples/example2/millennium-falcon.json?raw=true)**: same as above
 
 **[empire.json](examples/example2/empire.json?raw=true)** (click to download)
+
 ```
 {
-  "countdown": 8, 
+  "countdown": 8,
   "bounty_hunters": [
-    {"planet": "Hoth", "day": 6 }, 
+    {"planet": "Hoth", "day": 6 },
     {"planet": "Hoth", "day": 7 },
     {"planet": "Hoth", "day": 8 }
   ]
@@ -172,21 +184,24 @@ The application should display 0% as The Millennium Falcon cannot go from Tatooi
 ```
 
 The application should display 81% as The Millennium Falcon can go from Tatooine to Endor in 8 days with the following plan:
+
 - Travel from Tatooine to Hoth, with 10% chance of being captured on day 6 on Hoth.
 - Refuel on Hoth with 10% chance of being captured on day 7 on Hoth.
 - Travel from Hoth to Endor
 
 ### Example 3
+
 **[universe.db](examples/example3/universe.db?raw=true)** same as above
 
 **[millennium-falcon.json](examples/example3/millennium-falcon.json?raw=true)**: same as above
 
 **[empire.json](examples/example3/empire.json?raw=true)**
+
 ```
 {
-  "countdown": 9, 
+  "countdown": 9,
   "bounty_hunters": [
-    {"planet": "Hoth", "day": 6 }, 
+    {"planet": "Hoth", "day": 6 },
     {"planet": "Hoth", "day": 7 },
     {"planet": "Hoth", "day": 8 }
   ]
@@ -194,22 +209,25 @@ The application should display 81% as The Millennium Falcon can go from Tatooine
 ```
 
 The application should display 90% as The Millennium Falcon can go from Tatooine to Endor in 9 days with the following plan:
+
 - Travel from Tatooine to Dagobath.
 - Refuel on Dagobah
 - Travel from Dagobah to Hoth, with 10% chance of being captured on day 8 on Hoth.
 - Travel from Hoth to Endor
 
 ### Example 4
+
 **[universe.db](examples/example4/universe.db?raw=true)** same as above
 
 **[millennium-falcon.json](examples/example4/millennium-falcon.json?raw=true)**: same as above
 
 **[empire.json](examples/example4/empire.json?raw=true)**
+
 ```
 {
-  "countdown": 10, 
+  "countdown": 10,
   "bounty_hunters": [
-    {"planet": "Hoth", "day": 6 }, 
+    {"planet": "Hoth", "day": 6 },
     {"planet": "Hoth", "day": 7 },
     {"planet": "Hoth", "day": 8 }
   ]
@@ -217,7 +235,8 @@ The application should display 90% as The Millennium Falcon can go from Tatooine
 ```
 
 The application should display 100% as The Millennium Falcon can go from Tatooine to Endor in 10 days and avoid Bounty Hunters with the following plans:
-- Travel from Tatooine to Dagobah,  refuel on Dagobah
+
+- Travel from Tatooine to Dagobah, refuel on Dagobah
 - Wait for 1 day on Dagobah
 - Travel from Dagobah to Hoth
 - Travel from Hoth to Endor
@@ -229,8 +248,8 @@ or
 - Travel from Dagobah to Hoth
 - Travel from Hoth to Endor
 
-
 ## Final note
+
 There is absolutely no constraint on the technological stack that you might choose to achieve this,
 either in the backend or frontend. Choose whichever you think is best suited for the task.
 

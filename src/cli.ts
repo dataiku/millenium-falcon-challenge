@@ -1,7 +1,4 @@
-import { getBaseURL } from './lib/getBaseURL';
-import { loadJSON } from './lib/loadJSON';
-import { readPlanetRoutes } from './lib/PlanetRoute';
-import { readMfConfig } from './lib/MfConfig';
+import { main } from './cli.main';
 
 const argv = process.argv.slice(2);
 const [mfCfgRelativePath, empireCfgRelativePath] = argv;
@@ -16,17 +13,20 @@ if (!mfCfgRelativePath || !empireCfgRelativePath) {
   process.exit(1);
 }
 
-const main = async () => {
-  const cfg = await readMfConfig(mfCfgRelativePath);
-  console.log(cfg.dbAbsPath);
-  console.log(await readPlanetRoutes(cfg.dbAbsPath));
+const data = await main({
+  mfCfgRelativePath,
+  empireCfgRelativePath,
+});
 
-  const empirePath = getBaseURL(empireCfgRelativePath);
-  console.log(empirePath);
-  console.log(await loadJSON(empirePath));
-
-  console.log(mfCfgRelativePath);
-  console.log(cfg.milleniumFalcon);
+const logTable = (tblName: string, rows: unknown) => {
+  console.log(tblName);
+  console.table(rows);
 };
 
-main();
+logTable('Config paths', data.paths);
+logTable('Routes', data.routes);
+logTable('Bounty hunters', data.empireIntel.bounty_hunters);
+logTable('Millennium Falcon info', data.mfConfig);
+
+console.log('Countdown days:', data.empireIntel.countdown);
+console.log('The odds of success are: %o%', 100 * data.odds);

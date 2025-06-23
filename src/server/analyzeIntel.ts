@@ -34,7 +34,7 @@ export const handleSubmit = async (
     .then(() => analyzeIntel(formData))
     .then((intel) => ({
       status: 'ok' as const,
-      data: { intel, odds: -1 },
+      data: { intel, odds: -1 }, // findPath(intel.milleniumFalcon, intel, routes)
     }))
     .catch((err: unknown) => ({
       status: 'error' as const,

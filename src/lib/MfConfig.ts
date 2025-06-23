@@ -21,14 +21,15 @@ export const isMfConfig = (cfg: unknown): cfg is MfConfig =>
   typeof cfg.arrival === 'string' &&
   typeof cfg.routes_db === 'string';
 
-export const readMfConfig = async (mfRelPath: string) => {
-  const mfPath = getBaseURL(mfRelPath);
-  const mfCfg = await loadJSON(mfPath);
+export const readMfConfig = async (cfgRelPath: string) => {
+  const mfConfigAbsPath = getBaseURL(cfgRelPath);
+  const mfCfg = await loadJSON(mfConfigAbsPath);
   ok(isMfConfig(mfCfg), 'Invalid millenium-falcon.json');
 
-  const dbAbsPath = resolve(mfPath, '..', mfCfg.routes_db);
+  const dbAbsPath = resolve(mfConfigAbsPath, '..', mfCfg.routes_db);
   return {
     milleniumFalcon: mfCfg,
     dbAbsPath,
+    mfConfigAbsPath,
   };
 };
