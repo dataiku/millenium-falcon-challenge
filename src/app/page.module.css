@@ -8,10 +8,10 @@
 
   display: grid;
   grid-template-rows: 20px 1fr 20px;
-  align-items: center;
+  align-items: flex-start;
   justify-items: center;
   min-height: 100svh;
-  padding: 80px;
+  padding: 20px;
   gap: 64px;
   font-family: var(--font-geist-sans);
 }

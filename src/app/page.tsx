@@ -1,9 +1,10 @@
 import { ok } from 'node:assert';
-import { readDbRoutes } from '@/lib/readDbRoutes';
-import { readMfConfig } from '@/lib/readMfConfig';
-import { Route, Routes } from '@/comps/Routes';
-import { UploadIntel } from '@/comps/UploadIntel';
+import { readPlanetRoutes } from '@/lib/PlanetRoute';
+import { MfConfig, readMfConfig } from '@/lib/MfConfig';
+import { PlanetRoutes } from '@/ui/PlanetRoutes';
+import { UploadIntel } from '@/ui/UploadIntel';
 import styles from './page.module.css';
+import { SpaceshipInfo } from '@/ui/SpaceshipInfo';
 
 export default async function Home() {
   const mfRelPath = process.env.APP_MF;
@@ -12,7 +13,7 @@ export default async function Home() {
   const mfCfg = await readMfConfig(mfRelPath);
   console.log(mfCfg);
 
-  const routes = await readDbRoutes(mfCfg.dbAbsPath);
+  const routes = await readPlanetRoutes(mfCfg.dbAbsPath);
 
   return (
     <div className={styles.page}>
@@ -23,20 +24,12 @@ export default async function Home() {
         <UploadIntel />
         <details>
           <summary>Info</summary>
-          <h2>Fleet</h2>
-          <ul>
-            <li>
-              Can fly autonomously for{' '}
-              <strong>{mfCfg.milleniumFalcon.autonomy}</strong> days
-            </li>
-            <li>
-              From <strong>{mfCfg.milleniumFalcon.departure}</strong> to{' '}
-              <strong>{mfCfg.milleniumFalcon.arrival}</strong>.
-            </li>
-          </ul>
 
-          <h2>Universe</h2>
-          <Routes routes={routes as Route[]} />
+          <h3>Spaceship</h3>
+          <SpaceshipInfo mfConfig={mfCfg.milleniumFalcon} />
+
+          <h3>Universe map</h3>
+          <PlanetRoutes routes={routes} />
         </details>
       </main>
     </div>

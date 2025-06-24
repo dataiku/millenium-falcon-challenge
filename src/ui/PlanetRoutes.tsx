@@ -1,9 +1,6 @@
-export type Route = {
-  origin: string;
-  destination: string;
-  travel_time: number;
-};
-export const Routes = ({ routes }: { routes: Route[] }) => (
+import { PlanetRoute } from '../lib/PlanetRoute';
+
+export const PlanetRoutes = ({ routes }: { routes: PlanetRoute[] }) => (
   <table>
     <thead>
       <tr>

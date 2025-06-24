@@ -1,20 +1,9 @@
-export const isEmpireIntel = (intel: unknown): intel is EmpireIntel =>
-  typeof intel === 'object' &&
-  intel !== null &&
-  'countdown' in intel &&
-  typeof intel.countdown === 'number' &&
-  'bounty_hunters' in intel &&
-  Array.isArray(intel.bounty_hunters) &&
-  intel.bounty_hunters.every(
-    (it) =>
-      typeof it === 'object' &&
-      it !== null &&
-      'planet' in it &&
-      typeof it.planet === 'string' &&
-      'day' in it &&
-      typeof it.day === 'number',
-  );
+import { isBountyHunterAt } from './BountyHunterAt';
+import { isRecord } from './isRecord';
 
+/**
+ * Intel about the Empire
+ */
 export type EmpireIntel = {
   countdown: number;
   bounty_hunters: {
@@ -22,3 +11,9 @@ export type EmpireIntel = {
     day: number;
   }[];
 };
+
+export const isEmpireIntel = (intel: unknown): intel is EmpireIntel =>
+  isRecord(intel) &&
+  typeof intel.countdown === 'number' &&
+  Array.isArray(intel.bounty_hunters) &&
+  intel.bounty_hunters.every(isBountyHunterAt);

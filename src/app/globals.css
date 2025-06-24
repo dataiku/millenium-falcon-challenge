@@ -48,3 +48,17 @@ thead {
     color-scheme: dark;
   }
 }
+
+h1 {
+  margin-top: 0;
+}
+h2 {
+  margin-top: 1.5rem;
+}
+h3 {
+  margin-top: 1.3rem;
+}
+
+details summary {
+  cursor: pointer;
+}

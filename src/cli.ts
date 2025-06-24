@@ -1,7 +1,7 @@
 import { getBaseURL } from './lib/getBaseURL';
 import { loadJSON } from './lib/loadJSON';
-import { readDbRoutes } from './lib/readDbRoutes';
-import { readMfConfig } from './lib/readMfConfig';
+import { readPlanetRoutes } from './lib/PlanetRoute';
+import { readMfConfig } from './lib/MfConfig';
 
 const argv = process.argv.slice(2);
 const [mfCfgRelativePath, empireCfgRelativePath] = argv;
@@ -19,7 +19,7 @@ if (!mfCfgRelativePath || !empireCfgRelativePath) {
 const main = async () => {
   const cfg = await readMfConfig(mfCfgRelativePath);
   console.log(cfg.dbAbsPath);
-  console.log(await readDbRoutes(cfg.dbAbsPath));
+  console.log(await readPlanetRoutes(cfg.dbAbsPath));
 
   const empirePath = getBaseURL(empireCfgRelativePath);
   console.log(empirePath);

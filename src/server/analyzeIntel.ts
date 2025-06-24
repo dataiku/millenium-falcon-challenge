@@ -1,8 +1,9 @@
 'use server';
+import { AsyncState } from '@/lib/AsyncState';
 import { EmpireIntel, isEmpireIntel } from '@/lib/EmpireIntel';
 import { ok } from 'assert';
 
-export async function analyzeIntel(formData: FormData) {
+export const analyzeIntel = async (formData: FormData) => {
   const intel = formData.get('intel');
   if (!intel) {
     ok(false, 'Missing intel');
@@ -18,23 +19,22 @@ export async function analyzeIntel(formData: FormData) {
   }
 
   return json;
-}
+};
 
-export type State =
-  | { status: 'ok'; intel: EmpireIntel; odds: number }
-  | { status: 'error'; error: unknown }
-  | { status: 'noop' };
+export type TheOdds = {
+  intel: EmpireIntel;
+  odds: number;
+};
 
 export const handleSubmit = async (
-  _prevState: State,
+  _prevState: AsyncState<TheOdds> | null,
   formData: FormData,
-): Promise<State> =>
+): Promise<AsyncState<TheOdds>> =>
   await Promise.resolve()
     .then(() => analyzeIntel(formData))
     .then((intel) => ({
       status: 'ok' as const,
-      intel,
-      odds: -1,
+      data: { intel, odds: -1 },
     }))
     .catch((err: unknown) => ({
       status: 'error' as const,
