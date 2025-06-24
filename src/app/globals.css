@@ -51,6 +51,8 @@ thead {
 
 h1 {
   margin-top: 0;
+  font-weight: 200;
+  font-size: 300%;
 }
 h2 {
   margin-top: 1.5rem;
@@ -61,4 +63,8 @@ h3 {
 
 details summary {
   cursor: pointer;
+}
+
+p{
+  margin: 0.5rem 0;
 }

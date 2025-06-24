@@ -1,5 +1,5 @@
+import { isRecord } from '@/lib/isRecord';
 import { isBountyHunterAt } from './BountyHunterAt';
-import { isRecord } from './isRecord';
 
 /**
  * Intel about the Empire

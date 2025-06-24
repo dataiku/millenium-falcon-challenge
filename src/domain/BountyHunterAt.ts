@@ -1,4 +1,4 @@
-import { isRecord } from './isRecord';
+import { isRecord } from '@/lib/isRecord';
 
 /**
  * Bounty hunter present at a given planet on a given day

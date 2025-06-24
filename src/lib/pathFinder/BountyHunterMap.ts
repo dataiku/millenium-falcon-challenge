@@ -1,4 +1,4 @@
-import { BountyHunterAt } from '../BountyHunterAt';
+import { BountyHunterAt } from '@/domain/BountyHunterAt';
 
 const coordId = (planet: string, day: number) => [planet, day].join(',');
 

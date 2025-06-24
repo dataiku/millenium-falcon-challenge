@@ -1,4 +1,4 @@
-import { PlanetRoute } from '../PlanetRoute';
+import { PlanetRoute } from '@/domain/PlanetRoute';
 
 export type DistanceTo = { planet: string; travelDays: number };
 

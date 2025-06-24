@@ -1,6 +1,3 @@
-const getTravelStateKey = (planet: string, day: number, fuel: number) =>
-  `${day}-${planet}-${fuel}`;
-
 export type TravelStateItem = {
   day: number;
   planet: string;
@@ -32,7 +29,7 @@ export const createTravelState = (
 ): TravelState => ({
   encounters,
   item,
-  key: getTravelStateKey(item.planet, item.day, item.fuel),
+  key: `${item.day}-${item.planet}`,
 });
 
 export class TravelStateMap {

@@ -1,4 +1,4 @@
-import { main } from './cli.main';
+import { calculateOddsByFilePaths } from './calculateOddsByFilePaths';
 
 const argv = process.argv.slice(2);
 const [mfCfgRelativePath, empireCfgRelativePath] = argv;
@@ -13,7 +13,7 @@ if (!mfCfgRelativePath || !empireCfgRelativePath) {
   process.exit(1);
 }
 
-const data = await main({
+const data = await calculateOddsByFilePaths({
   mfCfgRelativePath,
   empireCfgRelativePath,
 });

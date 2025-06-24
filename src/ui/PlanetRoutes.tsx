@@ -1,4 +1,4 @@
-import { PlanetRoute } from '../lib/PlanetRoute';
+import { PlanetRoute } from '@/domain/PlanetRoute';
 
 export const PlanetRoutes = ({ routes }: { routes: PlanetRoute[] }) => (
   <table>

@@ -25,6 +25,19 @@ export class MinPriorityQueue<T> {
     return this;
   }
 
+  private bubbleUp(index: number): void {
+    while (index > 0) {
+      const parentIndex = getParentIndex(index);
+      // Heap property is satisfied
+      if (this.compareByIndices(index, parentIndex) >= 0) {
+        break;
+      }
+      // If the current item is smaller than its parent, swap them
+      this.swap(index, parentIndex);
+      index = parentIndex;
+    }
+  }
+
   /**
    * Removes and returns the smallest item from the heap.
    * @returns The smallest item, or undefined if the heap is empty.
@@ -42,42 +55,21 @@ export class MinPriorityQueue<T> {
     return min;
   }
 
-  private bubbleUp(index: number): void {
-    while (index > 0) {
-      const parentIndex = getParentIndex(index);
-      // Heap property is satisfied
-      if (this.compareByIndices(index, parentIndex) >= 0) {
-        break;
-      }
-      // If the current item is smaller than its parent, swap them
-      this.swap(index, parentIndex);
-      index = parentIndex;
-    }
-  }
-
   private bubbleDown(index: number): void {
     const lastIndex = this.heap.length - 1;
+    const smallest = (i: number, j: number) =>
+      i <= lastIndex && this.compareByIndices(i, j) < 0 ? i : j;
+
     while (true) {
-      // Assume current node is the smallest
       let smallestChildIndex = index;
-
-      // Check if left child exists and is smaller
-      let leftChildIndex = getLeftChildIndex(index);
-      if (
-        leftChildIndex <= lastIndex &&
-        this.compareByIndices(leftChildIndex, smallestChildIndex) < 0
-      ) {
-        smallestChildIndex = leftChildIndex;
-      }
-
-      // Check if right child exists and is smaller than the current smallest
-      let rightChildIndex = getRightChildIndex(index);
-      if (
-        rightChildIndex <= lastIndex &&
-        this.compareByIndices(rightChildIndex, smallestChildIndex) < 0
-      ) {
-        smallestChildIndex = rightChildIndex;
-      }
+      smallestChildIndex = smallest(
+        getLeftChildIndex(index),
+        smallestChildIndex,
+      );
+      smallestChildIndex = smallest(
+        getRightChildIndex(index),
+        smallestChildIndex,
+      );
 
       // If the smallest child is not the current node, swap and continue bubbling down
       if (smallestChildIndex === index) {

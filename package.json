@@ -10,7 +10,7 @@
   "scripts": {
     "  dev": "",
     "dev": "next dev --turbopack",
-    "dev:example": "APP_MF=${EXAMPLE_PATH}/millennium-falcon.json npm run dev",
+    "dev:example": "APP_MF_CFG=${EXAMPLE_PATH}/millennium-falcon.json npm run dev",
     "dev:example1": "EXAMPLE_PATH=./examples/example1 npm run dev:example",
     "dev:example2": "EXAMPLE_PATH=./examples/example2 npm run dev:example",
     "dev:example3": "EXAMPLE_PATH=./examples/example3 npm run dev:example",

@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  compress: true,
+  reactStrictMode: true,
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: false,
+    },
+    incomingRequests: true,
+  },
 };
 
 export default nextConfig;

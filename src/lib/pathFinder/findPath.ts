@@ -1,6 +1,6 @@
-import { EmpireIntel } from '../EmpireIntel';
-import { MfConfig } from '../MfConfig';
-import { PlanetRoute } from '../PlanetRoute';
+import { EmpireIntel } from '@/domain/EmpireIntel';
+import { MfConfig, SpaceshipParams } from '@/domain/MfConfig';
+import { PlanetRoute } from '@/domain/PlanetRoute';
 import { BountyHunterSet } from './BountyHunterMap';
 import { calculateSuccessProbability } from './calculateCaptureProbability';
 import { MinPriorityQueue } from './MinPriorityQueue';
@@ -21,7 +21,7 @@ import {
  */
 export function findPath(
   routes: PlanetRoute[],
-  { autonomy, departure, arrival }: MfConfig,
+  { autonomy, departure, arrival }: SpaceshipParams,
   { countdown, bounty_hunters: bountyHunters }: EmpireIntel,
 ): number {
   if (autonomy <= 0 || countdown <= 0) {
@@ -47,8 +47,8 @@ export function findPath(
       encounters += 1;
     }
     const tsi = createTravelState(encounters, ts);
-    const enc = minEncountersToState.get(tsi.key);
-    if (enc === undefined || encounters < enc) {
+    const minEnc = minEncountersToState.get(tsi.key);
+    if (minEnc === undefined || encounters < minEnc) {
       mpq.push(tsi);
     }
   };

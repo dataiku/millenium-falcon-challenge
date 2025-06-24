@@ -1,13 +1,13 @@
-import { MfConfig } from '../lib/MfConfig';
+import { SpaceshipParams } from '@/domain/MfConfig';
 
-export const SpaceshipInfo = ({ mfConfig }: { mfConfig: MfConfig }) => (
+export const SpaceshipInfo = ({ params }: { params: SpaceshipParams }) => (
   <ul>
     <li>
-      Can fly autonomously for <strong>{mfConfig.autonomy}</strong> days
+      Can fly autonomously for <strong>{params.autonomy}</strong> days
     </li>
     <li>
-      From <strong>{mfConfig.departure}</strong> to{' '}
-      <strong>{mfConfig.arrival}</strong>.
+      <strong>{params.departure}</strong> &rarr;{' '}
+      <strong>{params.arrival}</strong>.
     </li>
   </ul>
 );
