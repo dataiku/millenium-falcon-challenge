@@ -19,11 +19,11 @@ export class MinPriorityQueue<T> {
    * Pushes an item onto the heap, maintaining the heap property.
    * @param item The item to add.
    */
-  push(item: T) {
+  push = (item: T) => {
     this.heap.push(item);
     this.bubbleUp(this.heap.length - 1);
     return this;
-  }
+  };
 
   private bubbleUp(index: number): void {
     while (index > 0) {
@@ -42,7 +42,7 @@ export class MinPriorityQueue<T> {
    * Removes and returns the smallest item from the heap.
    * @returns The smallest item, or undefined if the heap is empty.
    */
-  pop() {
+  pop = () => {
     if (this.isEmpty()) {
       return undefined;
     }
@@ -53,7 +53,7 @@ export class MinPriorityQueue<T> {
       this.bubbleDown(0);
     }
     return min;
-  }
+  };
 
   private bubbleDown(index: number): void {
     const lastIndex = this.heap.length - 1;

@@ -23,15 +23,24 @@ export function findPath(
   routes: PlanetRoute[],
   { autonomy, departure, arrival }: SpaceshipParams,
   { countdown, bounty_hunters: bountyHunters }: EmpireIntel,
-): number {
-  if (autonomy <= 0 || countdown <= 0) {
+) {
+  if (autonomy <= 0 || countdown < 0) {
     return 0;
   }
 
-  const universe = new PlanetDistancesMap().addAll(routes);
   const bountyHuntersSet = new BountyHunterSet().addAll(bountyHunters);
+  const bhAtDeparture = bountyHuntersSet.has(departure, 0) ? 1 : 0;
+  if (departure === arrival) {
+    return calculateSuccessProbability(bhAtDeparture);
+  }
+
+  const universe = new PlanetDistancesMap().addAll(routes);
   const mpq = new MinPriorityQueue<TravelState>(compareTravelStates).push(
-    createTravelState(0, { day: 0, planet: departure, fuel: autonomy }),
+    createTravelState(bhAtDeparture, {
+      day: 0,
+      planet: departure,
+      fuel: autonomy,
+    }),
   );
   // Map to store the minimum encounters to reach a specific state: "planet,day,fuel" -> min encounters
   const minEncountersToState = new Map<string, number>();
@@ -47,11 +56,12 @@ export function findPath(
       encounters += 1;
     }
     const tsi = createTravelState(encounters, ts);
-    const minEnc = minEncountersToState.get(tsi.key);
-    if (minEnc === undefined || encounters < minEnc) {
+    const enc = minEncountersToState.get(tsi.key);
+    if (enc === undefined || encounters < enc) {
       mpq.push(tsi);
     }
   };
+
   //
   // --- Dijkstra's Algorithm Implementation ---
   //
@@ -79,7 +89,7 @@ export function findPath(
     }
     // If we've already found a path to this exact state with fewer or equal encounters, skip
     const enc = minEncountersToState.get(ts.key);
-    if (enc !== undefined && enc >= encounters) {
+    if (enc !== undefined && enc <= encounters) {
       continue;
     }
 
@@ -90,6 +100,7 @@ export function findPath(
     if (currentPlanet === arrival) {
       // If this path has fewer encounters, it's the new best
       minOverallEncounters = Math.min(minOverallEncounters, encounters);
+
       // If encounters are the same, but this path is faster, it's also better
       if (encounters === minOverallEncounters) {
         minPathTimeForMinEncounters = Math.min(

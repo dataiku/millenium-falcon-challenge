@@ -29,7 +29,7 @@ export const createTravelState = (
 ): TravelState => ({
   encounters,
   item,
-  key: `${item.day}-${item.planet}`,
+  key: `${item.day}-${item.planet}-${item.fuel}`,
 });
 
 export class TravelStateMap {
