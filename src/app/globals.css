@@ -35,6 +35,14 @@ a {
   text-decoration: none;
 }
 
+li {
+  margin-left: 1.2em;
+}
+
+thead {
+  text-align: left;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

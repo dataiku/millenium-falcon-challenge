@@ -6,26 +6,42 @@
     "type": "git",
     "url": "git+https://github.com/maxim-grishaev/dataiku-millennium-falcon.git"
   },
+  "type": "module",
   "scripts": {
+    "  dev": "",
     "dev": "next dev --turbopack",
+    "dev:example": "APP_MF=${EXAMPLE_PATH}/millennium-falcon.json npm run dev",
+    "dev:example1": "EXAMPLE_PATH=./examples/example1 npm run dev:example",
+    "dev:example2": "EXAMPLE_PATH=./examples/example2 npm run dev:example",
+    "dev:example3": "EXAMPLE_PATH=./examples/example3 npm run dev:example",
+    "dev:example4": "EXAMPLE_PATH=./examples/example4 npm run dev:example",
+    "  cli": "",
+    "give-me-the-odds": "tsx ./src/cli.ts",
+    "cli:example": "npm run give-me-the-odds -- ${EXAMPLE_PATH}/millennium-falcon.json ${EXAMPLE_PATH}/empire.json && echo 'Expected result' && cat ${EXAMPLE_PATH}/answer.json",
+    "cli:example1": "EXAMPLE_PATH=./examples/example1 npm run cli:example",
+    "cli:example2": "EXAMPLE_PATH=./examples/example2 npm run cli:example",
+    "cli:example3": "EXAMPLE_PATH=./examples/example3 npm run cli:example",
+    "cli:example4": "EXAMPLE_PATH=./examples/example4 npm run cli:example",
+    "  ": "",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --expeimental-strip-types ./src/test.ts"
-
+    "test": "node ./src/test.ts"
   },
   "dependencies": {
+    "next": "15.3.4",
+    "prettier": "^3.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.3.4"
+    "tsx": "^4.20.3"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "@eslint/eslintrc": "^3"
+    "typescript": "^5"
   }
 }
