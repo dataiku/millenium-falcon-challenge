@@ -5,27 +5,26 @@ import { appConfig } from '@/server/global.appConfig';
 import { readPlanetRoutes } from '@/server/readPlanetRoutes';
 import { UploadIntel } from './UploadIntel';
 import styles from './page.module.css';
+import { Page } from '@/ui/Page';
 
 export default async function Home() {
   const routes = await readPlanetRoutes(db());
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <h1>Millennium Falcon odds calculator</h1>
-
+    <Page title='Millennium Falcon odds calculator'>
+      <div className={styles.calculator}>
         <UploadIntel />
+      </div>
 
-        <details>
-          <summary>Info</summary>
+      <details className={styles.details}>
+        <summary>Details</summary>
 
-          <h3>Spaceship</h3>
-          <SpaceshipInfo params={appConfig().milleniumFalcon} />
+        <h3>Spaceship</h3>
+        <SpaceshipInfo params={appConfig().milleniumFalcon} />
 
-          <h3>Universe map</h3>
-          <PlanetRoutes routes={routes} />
-        </details>
-      </main>
-    </div>
+        <h3>Universe map</h3>
+        <PlanetRoutes routes={routes} />
+      </details>
+    </Page>
   );
 }

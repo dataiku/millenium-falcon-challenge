@@ -26,7 +26,7 @@ export const UploadIntelUI = ({
         <DisplayIntel odds={formState.data.odds} intel={formState.data.intel} />
       )}
       <p>
-        <strong>Upload new intel</strong>{' '}
+        <strong>Upload new intel</strong>
       </p>
       <input
         type='file'

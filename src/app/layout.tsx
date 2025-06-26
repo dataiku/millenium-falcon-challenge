@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Millennium Falcon odds',
+  title: 'C3PO: Millennium Falcon odds',
   description:
     'Calculate the odds of the Millennium Falcon reaching Endor in time and save the galaxy',
 };

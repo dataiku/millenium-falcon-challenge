@@ -2,15 +2,16 @@
 import { EmpireIntel } from '@/domain/EmpireIntel';
 import { readPlanetRoutes } from './readPlanetRoutes';
 import { db } from './global.db';
-import { PlanetRoute } from '@/domain/PlanetRoute';
 import { parseIntel } from './parseIntel';
 import { createSubmitHandler } from './createSubmitHandler';
 import { appConfig } from './global.appConfig';
 import { findPath } from '@/lib/pathFinder/findPath';
+import { TravelState } from '@/lib/pathFinder/TravelState';
 
 export type OkData = {
   intel: EmpireIntel;
   odds: number;
+  path: TravelState[];
 };
 
 export const readTheOddsByFormData = async (
@@ -20,10 +21,15 @@ export const readTheOddsByFormData = async (
     readPlanetRoutes(db()),
     parseIntel(formData.get('intel')),
   ]);
-  const odds = await findPath(routes, appConfig().milleniumFalcon, intel);
+  const { odds, path } = await findPath(
+    routes,
+    appConfig().milleniumFalcon,
+    intel,
+  );
   return {
     intel,
     odds,
+    path,
   };
 };
 

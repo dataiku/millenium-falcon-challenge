@@ -1,11 +1,11 @@
 import { cwd } from 'node:process';
 import { DatabaseSync } from 'node:sqlite';
-import { isEmpireIntel } from './domain/EmpireIntel';
-import { getBaseURL } from './lib/getBaseURL';
-import { loadJSON } from './lib/loadJSON';
-import { readAppConfig } from './server/readAppConfig';
-import { readPlanetRoutes } from './server/readPlanetRoutes';
-import { findPath } from './lib/pathFinder/findPath';
+import { isEmpireIntel } from '../domain/EmpireIntel';
+import { getBaseURL } from '../lib/getBaseURL';
+import { loadJSON } from '../lib/loadJSON';
+import { readAppConfig } from '../server/readAppConfig';
+import { readPlanetRoutes } from '../server/readPlanetRoutes';
+import { findPath } from '../lib/pathFinder/findPath';
 
 const readEmpireIntel = async (empireIntelJSONPath: string) => {
   const empireIntel = await loadJSON(empireIntelJSONPath);
@@ -33,7 +33,7 @@ export const calculateOddsByFilePaths = async ({
     readRoutesAndCfg(mfCfgRelativePath),
     readEmpireIntel(getBaseURL(empireCfgRelativePath)),
   ]);
-  const odds = await findPath(routes, milleniumFalcon, empireIntel);
+  const { odds, path } = await findPath(routes, milleniumFalcon, empireIntel);
 
   return {
     paths: {
@@ -46,5 +46,6 @@ export const calculateOddsByFilePaths = async ({
     mfConfig: milleniumFalcon,
     empireIntel,
     odds,
+    travelPath: path,
   };
 };

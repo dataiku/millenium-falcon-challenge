@@ -7,3 +7,12 @@
   font-weight: 400;
   font-size: 150%;
 }
+
+.subtext {
+  font-size: 60%;
+  display: block;
+}
+
+.displayIntel {
+  margin-bottom: 20px;
+}

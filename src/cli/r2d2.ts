@@ -19,7 +19,7 @@ const data = await calculateOddsByFilePaths({
 });
 
 const logTable = (tblName: string, rows: unknown) => {
-  console.log(tblName);
+  console.log('[R2D2]', tblName);
   console.table(rows);
 };
 
@@ -27,6 +27,7 @@ logTable('Config paths', data.paths);
 logTable('Routes', data.routes);
 logTable('Bounty hunters', data.empireIntel.bounty_hunters);
 logTable('Millennium Falcon info', data.mfConfig);
+logTable('Travel path', data.travelPath.map(({ item }) => item).reverse());
 
-console.log('Countdown days:', data.empireIntel.countdown);
-console.log('The odds of success are: %o%', 100 * data.odds);
+console.log('[R2D2] Countdown days:', data.empireIntel.countdown);
+console.log('[R2D2] The odds of success are: %o%', 100 * data.odds);
